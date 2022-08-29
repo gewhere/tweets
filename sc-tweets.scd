@@ -1,0 +1,2 @@
+// <2022-08-30 Tue 01:12>
+play{x=LFPulse.kr(_);k=Stepper.kr(x.(9),0,1,23,_);CombN.ar(GrainSin.ar(2,(x.(k.(4)) bitAnd: x.(k.(3))),0.01+0.02*(x.(3) bitOr: x.(k.(5))),SinOsc.kr(k.(1+2*x.(2))).range(9*k.(9),40*k.(5))*(x.(k.(7)) bitXor: x.(k.(11)))),0.2,0.04+(0.1*(LFPulse.kr(k.(9)) bitAnd: LFPulse.kr(k.(17)))))}
