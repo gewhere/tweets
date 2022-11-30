@@ -1,40 +1,12 @@
-// 220122
-Ndef(\x, { a=SinOsc;c=Sweep;t=Stepper.kr(a.kr(1/32),0,16,128,16,resetval:16).poll; Pan2.ar(BPeakEQ.ar(FreeVerb2.ar(x=Hilbert.ar(RLPF.ar(a.ar(900.nextPrime+41.nextPrime*a.kr(93.nextPrime*c.kr(a.kr(13/t)*a.kr(3),c.kr(a.kr(11/t)*a.kr(17/t/3*a.kr(5+3*a.kr(1/2*c.kr(a.kr(14),Stepper.kr(a.kr(13),0,11,23,3))))))))),128.nextPrime+24.nextPrime*c.kr(a.kr(1)),0.045).tanh),x,0.4,0.6,0.94,mul:0.5),80,0.73),a.kr(13/t)) }).play;
-
-// 220216
-Ndef(\x,{p=LFPulse.ar(_);FreeVerb.ar(RLPF.ar(p.([11,13]*Sweep.ar(p.(37)))*bitAnd(bitXor(p.(2),p.(5)),bitOr(p.(3),p.(7))),1999,1/8))/2}).play;
-
-// 220327
-Ndef(\x, { a=LFSaw; FreeVerb.ar(Pan2.ar(RHPF.ar(SinOsc.ar(Duty.kr(Dseq([1,2]/1e4,inf),0,Dseq((123..243).mirror2,inf))+(77*a.kr(4+(1*a.kr(3+(2*a.kr(5)))))),0,0.5+(0.5*a.kr(12))),0.1),a.kr(3)),0.2,0.2) }).play;
-
-// 220330
-Ndef(\x, {a=LFPulse; b=SinOsc; Limiter.ar(Pan2.ar(RLPF.ar(a.ar(Stepper.kr(a.kr(15,Sweep.kr(a.kr(0.1),0.95)),0,125,250,25)+(25*b.kr(1.3+(a.kr(1.5,0.2) bitAnd: a.kr(1.3,0.2)))),0.0,0.25+(0.15*b.kr(1/5))),500+((130*Sweep.kr((a.kr(1/3,0.2) bitXor: a.kr(1/4,0.2)),23))+150*(a.kr(1/4,0.1) bitOr: a.kr(1/3,0.1))),rq:0.25+(0.1*b.kr(1/9))),b.kr(2+b.kr(1/15))),0.95) }).play;
-
-// 220422
-Ndef(\x, { p=Impulse.kr(0.13); Pan2.ar(GrainSin.ar(1, Impulse.kr(Sweep.kr(p,31)), 0.001+Sweep.kr(p,0.0021), freq: Demand.kr(p, 0, Dseq([3, 7, 12].mirror*200, inf))+Sweep.kr(p,122))) }).play;
-
-// <2022-08-30 Tue 01:12>
-play{x=LFPulse.kr(_);k=Stepper.kr(x.(9),0,1,23,_);CombN.ar(GrainSin.ar(2,(x.(k.(4)) bitAnd: x.(k.(3))),0.01+0.02*(x.(3) bitOr: x.(k.(5))),SinOsc.kr(k.(1+2*x.(2))).range(9*k.(9),40*k.(5))*(x.(k.(7)) bitXor: x.(k.(11)))),0.2,0.04+(0.1*(LFPulse.kr(k.(9)) bitAnd: LFPulse.kr(k.(17)))))}
-
-// tweet-step
+// tweet-step -- https://soundcloud.com/aucotsi/tweet_step (10 years ago)
 {a=SinOsc.ar(_);b=LFPulse.ar(_);f=Stepper.ar(b.(93+(124*a.(1.2))));a.(400!2/f,a.(11)).tanh*Mux2.ar(b.(5,pi/5),b.(7,pi/7),b.(0.2)).lag}.play
 
 // pseudo ugen
 Mux2 : UGen { *ar { arg in0, in1, sel; ^bitOr(bitAnd(in0, (bitNot(sel)%2)), bitAnd(in1, bitNot(sel)+1)) } }
 
-// ================
-// MASTODON
-// 2022-11-02
-play{x=LFPulse.kr(_);k=Stepper.kr(x.(9),0,1,23,_);CombC.ar(GrainSin.ar(2,(x.(k.(4)) bitAnd: x.(k.(3))),0.01+0.02*(x.(3) bitOr: x.(k.(5))),SinOsc.kr(k.(1+2*x.(2))).range(9*k.(9),40*k.(5))*(x.(k.(7)) bitXor: x.(k.(11)))),0.2,0.04+(0.1*(LFPulse.kr(k.(9)) bitAnd: LFPulse.kr(k.(17)))))} // #sc140
-
-// 2022-11-13
-play{p=LFPulse.kr(_);t=Stepper.kr(_,0,1,7,_);w=Sweep.ar(_);f=InFeedback.ar(0,2);FreeVerb2.ar(a=PMOsc.ar(97*p.(p.(11),t.(p.(5),2)),9,w.(p.(7) bitXor: p.(5)))*LFGauss.ar(w.(p.(t.(p.(8),t.(p.(5),2))) bitOr: p.(t.(p.(4),2))),w.(p.(5)).range(0.1,0.5)).fold(-0.8,0.8).fold(-0.5,0.5),a+f/5,1/9)} // #sc140 #SuperCollider
-
-// <2022-11-30 Wed 17:39>
-play{a=SinOsc;p=Pulse;f=InFeedback.ar(0,2);Limiter.ar((CombN.ar(RHPF.ar(WhiteNoise.ar,8e3,0.9)*LFGauss.ar(0.1,0.1+(f.abs/9))*p.kr(Select.kr(a.kr(1/3,f/pi,1.5,1.5),[8,12,24]),a.ar(11).range(0.01,0.1)))+a.ar(97*n=p.ar(4,f),f,p.kr(2,f.abs,add:f.abs))+GVerb.ar(a.ar(99*n,f/pi)+p.ar(p.kr(3*n),f.abs),1,mul:0.1)),0.5,0.002).tanh} // #SuperCollider #sc140
-
 // ======================
 // sccode.org
+// ======================
 
 // http://sccode.org/1-M
 // «tweets» by aucotsi
@@ -135,6 +107,8 @@ play{a=Impulse;tanh(a.kr(8).lag*Crackle.ar(LFSaw.kr(3).abs.lag*1.8)+GVerb.ar([a.
 
 // ======================
 // twitter posts
+// ======================
+
 
 //yorgos diapoulis
 //@aucotsi
@@ -255,3 +229,33 @@ play{a=SinOsc;FreeVerb.ar(GrainSin.ar(2,a.kr(15*a.kr(13)*a.kr(12)),(a.kr(9)*a.kr
 //@aucotsi
 //Sep 29, 2017
 play{a=SinOsc;Pan2.ar(a.ar(132*Pulse.ar(1,a.kr(2)).tanh)+GrainIn.ar(2,a.kr(11),1/2**11,Hilbert.ar(a.ar(33+9*a.kr(9+7*a.kr(2))))),a.kr(3))/9}
+
+// ======================
+// OFFLINE
+// ======================
+
+
+// 220122
+Ndef(\x, { a=SinOsc;c=Sweep;t=Stepper.kr(a.kr(1/32),0,16,128,16,resetval:16).poll; Pan2.ar(BPeakEQ.ar(FreeVerb2.ar(x=Hilbert.ar(RLPF.ar(a.ar(900.nextPrime+41.nextPrime*a.kr(93.nextPrime*c.kr(a.kr(13/t)*a.kr(3),c.kr(a.kr(11/t)*a.kr(17/t/3*a.kr(5+3*a.kr(1/2*c.kr(a.kr(14),Stepper.kr(a.kr(13),0,11,23,3))))))))),128.nextPrime+24.nextPrime*c.kr(a.kr(1)),0.045).tanh),x,0.4,0.6,0.94,mul:0.5),80,0.73),a.kr(13/t)) }).play;
+
+// 220216
+Ndef(\x,{p=LFPulse.ar(_);FreeVerb.ar(RLPF.ar(p.([11,13]*Sweep.ar(p.(37)))*bitAnd(bitXor(p.(2),p.(5)),bitOr(p.(3),p.(7))),1999,1/8))/2}).play;
+
+// 220330
+Ndef(\x, {a=LFPulse; b=SinOsc; Limiter.ar(Pan2.ar(RLPF.ar(a.ar(Stepper.kr(a.kr(15,Sweep.kr(a.kr(0.1),0.95)),0,125,250,25)+(25*b.kr(1.3+(a.kr(1.5,0.2) bitAnd: a.kr(1.3,0.2)))),0.0,0.25+(0.15*b.kr(1/5))),500+((130*Sweep.kr((a.kr(1/3,0.2) bitXor: a.kr(1/4,0.2)),23))+150*(a.kr(1/4,0.1) bitOr: a.kr(1/3,0.1))),rq:0.25+(0.1*b.kr(1/9))),b.kr(2+b.kr(1/15))),0.95) }).play;
+
+// 220422
+Ndef(\x, { p=Impulse.kr(0.13); Pan2.ar(GrainSin.ar(1, Impulse.kr(Sweep.kr(p,31)), 0.001+Sweep.kr(p,0.0021), freq: Demand.kr(p, 0, Dseq([3, 7, 12].mirror*200, inf))+Sweep.kr(p,122))) }).play;
+
+// ======================
+// MASTODON
+// ======================
+
+// 2022-11-02
+play{x=LFPulse.kr(_);k=Stepper.kr(x.(9),0,1,23,_);CombC.ar(GrainSin.ar(2,(x.(k.(4)) bitAnd: x.(k.(3))),0.01+0.02*(x.(3) bitOr: x.(k.(5))),SinOsc.kr(k.(1+2*x.(2))).range(9*k.(9),40*k.(5))*(x.(k.(7)) bitXor: x.(k.(11)))),0.2,0.04+(0.1*(LFPulse.kr(k.(9)) bitAnd: LFPulse.kr(k.(17)))))} // #sc140
+
+// 2022-11-13
+play{p=LFPulse.kr(_);t=Stepper.kr(_,0,1,7,_);w=Sweep.ar(_);f=InFeedback.ar(0,2);FreeVerb2.ar(a=PMOsc.ar(97*p.(p.(11),t.(p.(5),2)),9,w.(p.(7) bitXor: p.(5)))*LFGauss.ar(w.(p.(t.(p.(8),t.(p.(5),2))) bitOr: p.(t.(p.(4),2))),w.(p.(5)).range(0.1,0.5)).fold(-0.8,0.8).fold(-0.5,0.5),a+f/5,1/9)} // #sc140 #SuperCollider
+
+// <2022-11-30 Wed 17:39>
+play{a=SinOsc;p=Pulse;f=InFeedback.ar(0,2);Limiter.ar((CombN.ar(RHPF.ar(WhiteNoise.ar,8e3,0.9)*LFGauss.ar(0.1,0.1+(f.abs/9))*p.kr(Select.kr(a.kr(1/3,f/pi,1.5,1.5),[8,12,24]),a.ar(11).range(0.01,0.1)))+a.ar(97*n=p.ar(4,f),f,p.kr(2,f.abs,add:f.abs))+GVerb.ar(a.ar(99*n,f/pi)+p.ar(p.kr(3*n),f.abs),1,mul:0.1)),0.5,0.002).tanh} // #SuperCollider #sc140
