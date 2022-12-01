@@ -316,11 +316,14 @@ play{p=LFPulse.kr(_);t=Stepper.kr(_,0,1,7,_);w=Sweep.ar(_);f=InFeedback.ar(0,2);
 // #058
 play{a=SinOsc;p=Pulse;f=InFeedback.ar(0,2);Limiter.ar((CombN.ar(RHPF.ar(WhiteNoise.ar,8e3,0.9)*LFGauss.ar(0.1,0.1+(f.abs/9))*p.kr(Select.kr(a.kr(1/3,f/pi,1.5,1.5),[8,12,24]),a.ar(11).range(0.01,0.1)))+a.ar(97*n=p.ar(4,f),f,p.kr(2,f.abs,add:f.abs))+GVerb.ar(a.ar(99*n,f/pi)+p.ar(p.kr(3*n),f.abs),1,mul:0.1)),0.5,0.002).tanh} // #SuperCollider #sc140
 
+// ======================
+// ON HARD DRIVES
+// ======================
 // 2013 April
 // #059
 play{a=LFPulse;b=SinOsc;b.ar(89!2*Latch.ar(b.ar(8.9),c=a.ar(5)))+(Line.ar(dur:29)*b.ar(1424/Stepper.ar(c,0,1,17,4).lag,0,b.ar(0.4).ceil)/4)}
 
-//////141 - stereo (gamei)
+//////141 - stereo (game*)
 // #060
 play{a=SinOsc.ar(_);b=LFPulse;c=Latch;d=WhiteNoise;LFGauss.ar(n=a.(4).abs,n/9)*a.(1e3*n)/9+a.(89!2*c.ar(a.(8.9),b.ar(5)))+d.ar(b.ar(10)/99)}
 
