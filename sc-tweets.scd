@@ -315,3 +315,40 @@ play{p=LFPulse.kr(_);t=Stepper.kr(_,0,1,7,_);w=Sweep.ar(_);f=InFeedback.ar(0,2);
 // <2022-11-30 Wed 17:39>
 // #058
 play{a=SinOsc;p=Pulse;f=InFeedback.ar(0,2);Limiter.ar((CombN.ar(RHPF.ar(WhiteNoise.ar,8e3,0.9)*LFGauss.ar(0.1,0.1+(f.abs/9))*p.kr(Select.kr(a.kr(1/3,f/pi,1.5,1.5),[8,12,24]),a.ar(11).range(0.01,0.1)))+a.ar(97*n=p.ar(4,f),f,p.kr(2,f.abs,add:f.abs))+GVerb.ar(a.ar(99*n,f/pi)+p.ar(p.kr(3*n),f.abs),1,mul:0.1)),0.5,0.002).tanh} // #SuperCollider #sc140
+
+// 2013 April
+// #059
+play{a=LFPulse;b=SinOsc;b.ar(89!2*Latch.ar(b.ar(8.9),c=a.ar(5)))+(Line.ar(dur:29)*b.ar(1424/Stepper.ar(c,0,1,17,4).lag,0,b.ar(0.4).ceil)/4)}
+
+//////141 - stereo (gamei)
+// #060
+play{a=SinOsc.ar(_);b=LFPulse;c=Latch;d=WhiteNoise;LFGauss.ar(n=a.(4).abs,n/9)*a.(1e3*n)/9+a.(89!2*c.ar(a.(8.9),b.ar(5)))+d.ar(b.ar(10)/99)}
+
+//dark NICE
+// #061
+play{a=LFPulse;b=SinOsc;b.ar(89!2*c=Latch.ar(b.ar(8.9),a.ar(5)))+(Line.ar(dur:29)*c*b.ar(267*Stepper.ar(c,0,-7,7,2).lag,0,b.ar(0.4).ceil))}
+
+// #062
+play{a=LFPulse;b=SinOsc.ar(_);c=Latch;d=WhiteNoise;LFGauss.ar(n=b.(9).abs,n/9)*b.(1424*n)/9+b.(89!2*c.ar(b.(9*n),a.ar(5)))+d.ar(a.ar(10)/99)}
+
+// klank freq->0 -- 131203 (in 031213.scd)
+// #063
+play{p=LFPulse.ar(_);IFFT(PV_MagFreeze(FFT(LocalBuf(64),Klank.ar(`[[2,3]],Gate.ar(p.(6),LFCub.ar(Gate.ar(p.(7),p.(5))))*n=p.(9),0)),n))!2/990}
+
+// exisou kalo -- 131203 (in 031213.scd)
+// #064
+play{p=LFPulse.ar(_);IFFT(PV_MagFreeze(FFT(LocalBuf(64),Klank.ar(`[[8,9]],Gate.ar(p.(6),LFCub.ar(Gate.ar(p.(7),p.(5))))*p.(9),9)),p.(2)))/99}
+
+// or simply 69 -- 140104 (in 040114.scd)
+// #065
+play{a=SinOsc;RLPF.ar(a.ar(Latch.ar(a.ar(n=99+x=XLine.kr(0s,1,69);n*Stepper.kr(a.kr(6))),a.ar(9))*99!2),199,x-0s).tanh/3}// #sc140
+
+// *)(*^^()) -- 140104 (in 040114.scd)
+// #066
+play{a=SinOsc;RLPF.ar(a.ar(Latch.ar(a.ar(n=99+x=XLine.kr(0s,1,69);n*Stepper.kr(a.kr(6))),a.ar(9))*99!2),199+a.kr(x).range(-75,99).poll,x-0s).tanh/3}// #sc140
+
+// #067
+play{a=SinOsc;RLPF.ar(a.ar(Latch.ar(a.ar(n=99+x=XLine.kr(0s,1,69);n*Stepper.kr(a.kr(6))),a.ar(9))*n!2),199+a.kr(x).range(-9,n),x-0s).tanh/3}
+
+// #068 -- 221130
+play{a=SinOsc;f=InFeedback.ar(0,2);RLPF.ar(a.ar(Latch.ar(a.ar(n=99+x=XLine.kr(0s,1,69);n*Stepper.kr(a.kr(6,f)),f),a.ar(9,f))*n!2),299+a.kr(x+(f*x/2),f).range(-9,n),x-0s).tanh}
