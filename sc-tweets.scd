@@ -354,4 +354,7 @@ play{a=SinOsc;RLPF.ar(a.ar(Latch.ar(a.ar(n=99+x=XLine.kr(0s,1,69);n*Stepper.kr(a
 play{a=SinOsc;RLPF.ar(a.ar(Latch.ar(a.ar(n=99+x=XLine.kr(0s,1,69);n*Stepper.kr(a.kr(6))),a.ar(9))*n!2),199+a.kr(x).range(-9,n),x-0s).tanh/3}
 
 // #068 -- 221130
-play{a=SinOsc;f=InFeedback.ar(0,2);RLPF.ar(a.ar(Latch.ar(a.ar(n=99+x=XLine.kr(0s,1,69);n*Stepper.kr(a.kr(6,f)),f),a.ar(9,f))*n!2),299+a.kr(x+(f*x/2),f).range(-9,n),x-0s).tanh}
+play{a=SinOsc;f=InFeedback.ar(0,2);RLPF.ar(a.ar(Latch.ar(a.ar(n=99+x=XLine.kr(0s,1,69);n*Stepper.kr(a.kr(6,f)),f),a.ar(9,f))*n!2),299+a.kr(x+(f*x/2),f).range(-9,n),x-0s).tanh/9}
+
+// #069 -- 230128 @ 44100Hz
+Ndef(\x,{f=LFSaw;FreeVerb2.ar(RLPF.ar(a=Limiter.ar(Convolution.ar(StandardN.ar([1.1,2], 2),Gendy1.ar(4,1,1,1,f.kr(0.3).fold(f.kr(2).range(-0.9,-0.7),f.kr(3).range(0.6,0.9)).fold(f.kr(3).range(-0.4,-0.2),f.kr(5).range(0.2,-0.4)).range(20,733),f.kr(13).fold(-0.7,0.7).fold(-0.4,0.4).range(1999,7333))),0.95),f.kr(SinOsc.kr(11).range(99,130)).range(999,1e4),f.kr(SinOsc.kr(1.1).range(1,12)).range(0.3,0.95)),Ndef(\x)/9)}).play
