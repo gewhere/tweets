@@ -361,3 +361,6 @@ Ndef(\x,{f=LFSaw;FreeVerb2.ar(RLPF.ar(a=Limiter.ar(Convolution.ar(StandardN.ar([
 
 // #070 -- 240630 -- 280 chars -- longer decay
 play{p=LFPulse;f=LFSaw.kr(_);t=1/Stepper.kr(p.kr(1),0,1);b=f.(t).range(0.1,1);a=f.(1/t).range(0.01,b);d=f.(1).range(0.1,b);v=Decay2.kr(p.kr(t),a,d);c=p.ar(37*t,0,f.(t).range(0.1,b),v);l=LocalIn.ar(1)+c;LocalOut.ar(DelayN.ar(l*b));FreeVerb.ar(LeakDC.ar(l).fold(f.(t).neg,f.(t)))!2}
+
+// #070 variation -- 280 chars
+{p=LFPulse;f=LFSaw.kr(_);t=1/Stepper.kr(p.kr(1),0,1);b=f.(t).range(0.1,1);a=f.(1/t).range(0.01,b);d=f.(1).range(0.1,b);v=Decay2.kr(p.kr(t),a,d);c=p.ar(37*t,0,f.(t).range(0.1,b),v);l=LocalIn.ar(1)+c;LocalOut.ar(DelayC.ar(l*b,1,t));FreeVerb.ar(l.fold(f.(t).neg,f.(t)).tanh)!2}.play;
